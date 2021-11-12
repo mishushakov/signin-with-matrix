@@ -7,6 +7,7 @@ export default defineConfig({
     lib: {
       entry: './src/main.ts',
       name: 'Sign in with Matrix',
+      fileName: 'index'
     }
   },
   plugins: [svelte({
