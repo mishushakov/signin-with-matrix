@@ -374,7 +374,7 @@
         return
       }
 
-      resolve (signedInUser)
+      resolve(signedInUser)
     })
   }
 </script>

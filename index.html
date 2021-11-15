@@ -11,26 +11,45 @@
 
     <pre id="profile"></pre>
     <matrix-signin id="signin"></matrix-signin>
-    <matrix-signin-button target="signin">
-      Sign in with Matrix
-    </matrix-signin-button>
+
+    <div>
+      <matrix-signin-button target="signin">
+        Sign in with Matrix
+      </matrix-signin-button>
+
+      <a id="signout_button" href="#" onclick="signOut()">Sign out</a>
+    </div>
 
     <script type="module" src="/src/main.ts"></script>
     <!-- <script type="module" src="https://unpkg.com/signin-with-matrix@latest/dist/index.es.js"></script> -->
     <script>
       const signIn = document.querySelector('matrix-signin')
+      const signInButton = document.querySelector('matrix-signin-button')
       const status = document.getElementById('status')
+      const pre = document.getElementById('profile')
+      const signOutButton = document.getElementById('signout_button')
+
       signIn.addEventListener('success', ({ detail }) => {
-        const pre = document.getElementById('profile')
         pre.style.display = 'block'
         pre.innerText = JSON.stringify(detail)
+        signInButton.style.display = 'none'
+        signOutButton.style.display = 'inline-block'
         status.innerText = 'Success 😎'
       })
 
       signIn.addEventListener('cancel', () => {
         status.innerText = 'Cancelled 🙁'
-        if (signIn.isSignedIn()) console.log(signIn.signOut())
       })
+
+      const signOut = () => {
+        signIn.signOut()
+        .then(() => {
+          pre.style.display = 'none'
+          signOutButton.style.display = 'none'
+          signInButton.style.display = 'block'
+          status.innerText = 'Signed out 👋'
+        })
+      }
     </script>
 
     <style>
@@ -64,6 +83,12 @@
         padding: 20px;
         border-radius: 4px;
         background: rgba(0,0,0,.05);
+      }
+
+      #signout_button {
+        display: none;
+        margin-left: 6px;
+        color: black;
       }
     </style>
   </body>
