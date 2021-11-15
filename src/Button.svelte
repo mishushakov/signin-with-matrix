@@ -25,5 +25,5 @@
 
 <script lang="ts">
   export let target = ''
-  export let signin: HTMLElement = document.getElementById(target)
+  export let signin = document.getElementById(target)
 </script>

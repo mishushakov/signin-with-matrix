@@ -25,7 +25,7 @@
           <input id="homeserver" aria-required="true" type="text" bind:value={homeserver} required />
 
           <label for="user">Username</label>
-          <input id="user" name="username" type="text" bind:value={user} required autocomplete="username" spellcheck="false" autocapitalize="off" />
+          <input id="user" name="username" type="text" bind:value={username} required autocomplete="username" spellcheck="false" autocapitalize="off" />
 
           <label for="password">Password</label>
           <input id="password" name="password" type="password" bind:value={password} required autocomplete="current-password" />
@@ -42,15 +42,15 @@
         </div>
       {/if}
 
-      {#if signed_in_user}
+      {#if signedInUser}
         <div class="matrix-signin-modal-end">
           <img
             aria-hidden="true"
-            alt="{signed_in_user.displayname || signed_in_user.user_id} avatar"
+            alt="{signedInUser.displayname || signedInUser.user_id} avatar"
             class="matrix-signin-modal-avatar"
-            src={signed_in_user.avatar_content}
+            src={signedInUser.avatar_content}
           />
-          <span class="matrix-signin-modal-end-label" role="alert">Signed in as {signed_in_user.displayname || signed_in_user.user_id}</span>
+          <span class="matrix-signin-modal-end-label" role="alert">Signed in as {signedInUser.displayname || signedInUser.user_id}</span>
         </div>
       {/if}
 
@@ -111,7 +111,7 @@
 
   .matrix-signin-modal-header {
     padding: 16px 32px;
-    border-bottom: 1px solid rgba(150, 122, 122, 0.1);
+    border-bottom: 1px solid rgba(0,0,0,0.1);
     display: flex;
     align-items: center;
   }
@@ -128,7 +128,7 @@
 
   .matrix-signin-modal-end {
     margin-top: auto;
-    border-top: 1px solid rgba(150, 122, 122, 0.1);
+    border-top: 1px solid rgba(0,0,0,.1);
     padding: 22px 32px;
     display: flex;
     align-items: center;
@@ -234,11 +234,12 @@
   export let title = 'Continue using Matrix'
   export let homeserver = 'matrix.org'
 
-  let user = ''
+  let baseUrl
+  let username = ''
   let password = ''
   let error = null
   let loading = false
-  let signed_in_user = null
+  let signedInUser = null
   let focustrap
 
   const component = get_current_component()
@@ -264,6 +265,8 @@
   export const close = () => {
     focustrap.deactivate()
     modal_visible = false
+    username = ''
+    password = ''
   }
 
   export const cancel = () => {
@@ -279,20 +282,20 @@
 
   const signIn = () => {
     error = null
-    signed_in_user = null
+    signedInUser = null
     loading = true
 
     fetch(`https://${homeserver}/.well-known/matrix/client`)
     .then(res => res.json())
     .then((data) => {
-      const baseUrl = data['m.homeserver'].base_url
+      baseUrl = data['m.homeserver'].base_url
       fetch(`${baseUrl}/_matrix/client/r0/login`, {
         method: 'POST',
         body: JSON.stringify({
           type: 'm.login.password',
           identifier: {
             type: 'm.id.user',
-            user
+            user: username
           },
           device_id: window.location.hostname,
           initial_device_display_name: displayName,
@@ -319,7 +322,8 @@
           }
 
           loading = false
-          signed_in_user = user
+          signedInUser = user
+
           dispatch('success', {user})
           setTimeout(close, 500)
         })
@@ -334,6 +338,43 @@
       loading = false
       error = e.message
       dispatch('error', e.message)
+    })
+  }
+
+  export const signOut = () => {
+    return new Promise((resolve, reject) => {
+      if (!signedInUser) {
+        reject('User not signed in')
+        return
+      }
+
+      fetch(`${baseUrl}/_matrix/client/r0/logout`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${signedInUser.access_token}`
+        }
+      })
+      .then(() => {
+        signedInUser = null
+        dispatch('signout', {})
+        resolve({})
+      })
+      .catch(e => reject(e))
+    })
+  }
+
+  export const isSignedIn = () => {
+    return signedInUser !== null
+  }
+
+  export const getUser = () => {
+    return new Promise((resolve, reject) => {
+      if (!signedInUser) {
+        reject('User not signed in')
+        return
+      }
+
+      resolve (signedInUser)
     })
   }
 </script>

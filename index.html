@@ -15,8 +15,8 @@
       Sign in with Matrix
     </matrix-signin-button>
 
-    <!-- <script type="module" src="/src/main.ts"></script> -->
-    <script type="module" src="https://unpkg.com/signin-with-matrix@latest/dist/index.es.js"></script>
+    <script type="module" src="/src/main.ts"></script>
+    <!-- <script type="module" src="https://unpkg.com/signin-with-matrix@latest/dist/index.es.js"></script> -->
     <script>
       const signIn = document.querySelector('matrix-signin')
       const status = document.getElementById('status')
@@ -29,6 +29,7 @@
 
       signIn.addEventListener('cancel', () => {
         status.innerText = 'Cancelled 🙁'
+        if (signIn.isSignedIn()) console.log(signIn.signOut())
       })
     </script>
 

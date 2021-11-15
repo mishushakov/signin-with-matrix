@@ -1,10 +1,12 @@
 # Sign in with Matrix
 
-[35 Million](https://techcrunch.com/2021/07/27/element-a-messaging-app-built-on-the-decentralized-matrix-protocol-raises-30m/) Matrix users can't wait to use your app. Use this pre-built component to make federated sign-in a no-effort zero-brainer
+[Over 35 million](https://techcrunch.com/2021/07/27/element-a-messaging-app-built-on-the-decentralized-matrix-protocol-raises-30m/) Matrix users can't wait to use your app. Use this pre-built component to make federated sign-in a no-effort zero-brainer
 
 Before you do, please [try a demo](https://mishushakov.github.io/signin-with-matrix)
 
-Like it? Click on "Donate", so i can keep making this stuff!
+Like it? Click on "Sponsor", so i can keep making this stuff!
+
+✨ Featured on [This Week in Matrix](https://matrix.org/blog/2021/11/12/this-week-in-matrix-2021-11-12)
 
 ## Cool stuff
 
@@ -61,15 +63,15 @@ Add the two components to your HTML
 
 ## Spec
 
-### HTML attributes
+### `<matrix-signin>`
 
-#### `<matrix-signin>`
+#### HTML attributes
 
 - `displayName` (String), name that will be displayed in Matrix
 - `title` (String), modal title
 - `homeserver` (String), default home server
 
-#### Example
+**Example**
 
 ```html
 <matrix-signin
@@ -79,20 +81,24 @@ Add the two components to your HTML
 </matrix-signin>
 ```
 
-### Methods
+#### Methods
 
 - `open()`, opens the modal
 - `close()`, closes the modal
 - `cancel()`, cancels the modal (will send cancel event)
+- `isSignedIn()`, checks if user is signed in
+- `getUser()`, returns current user, returns Promise
+- `signOut()`, sign out, returns Promise
 
-### Events
+#### Events
 
 - `open`, when modal opens
 - `cancel`, when modal is cancelled
 - `success`, when login has succeeded (with user object)
 - `error`, when error occurs (with error object)
+- `signout`, when user signs out
 
-#### Example
+**Example**
 
 **Vanilla HTML + JS**
 
@@ -122,6 +128,20 @@ export default {
   }
 }
 </script>
+```
+
+### `<matrix-signin-button>`
+
+#### HTML attributes
+
+- `target` (String), id of the target `<matrix-signin>` component
+
+**Example**
+
+```html
+<matrix-signin-button target="signin">
+  Sign in with Matrix
+</matrix-signin-button>
 ```
 
 ## Development
