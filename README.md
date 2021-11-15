@@ -1,5 +1,7 @@
 # Sign in with Matrix
 
+https://user-images.githubusercontent.com/10400064/141484564-efcaa3b9-18cc-4ca5-9270-f4c4eda9073a.mov
+
 [Over 35 million](https://techcrunch.com/2021/07/27/element-a-messaging-app-built-on-the-decentralized-matrix-protocol-raises-30m/) Matrix users can't wait to use your app. Use this pre-built component to make federated sign-in a no-effort zero-brainer
 
 Before you do, please [try a demo](https://mishushakov.github.io/signin-with-matrix)
