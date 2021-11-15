@@ -24,8 +24,8 @@
           <label for="homeserver">Homeserver</label>
           <input id="homeserver" aria-required="true" type="text" bind:value={homeserver} required />
 
-          <label for="user">Username</label>
-          <input id="user" name="username" type="text" bind:value={username} required autocomplete="username" spellcheck="false" autocapitalize="off" />
+          <label for="username">Username</label>
+          <input id="username" name="username" type="text" bind:value={username} required autocomplete="username" spellcheck="false" autocapitalize="off" />
 
           <label for="password">Password</label>
           <input id="password" name="password" type="password" bind:value={password} required autocomplete="current-password" />
@@ -187,7 +187,7 @@
   .matrix-signin-dialog-form input[type="password"] {
     font-size: 16px;
     border: 1px solid var(--matrix-signin-dialog-border, rgba(0,0,0,.1));
-    background: rgba(0,0,0,.03);
+    background: var(--matrix-signin-dialog-form-background, rgba(0,0,0,.03));
     border-radius: 8px;
     padding: 15px 10px;
     color: var(--matrix-signin-dialog-text-color, black);

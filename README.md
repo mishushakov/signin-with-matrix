@@ -146,6 +146,7 @@ CSS variables available to style
 --matrix-signin-dialog-icon-color
 --matrix-signin-dialog-hover-color
 --matrix-signin-dialog-error-color
+--matrix-signin-dialog-form-background
 --matrix-signin-dialog-button-background
 --matrix-signin-dialog-button-color
 ```
