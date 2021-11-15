@@ -130,6 +130,24 @@ export default {
 </script>
 ```
 
+#### Styling
+
+CSS variables available to style
+
+```css
+--matrix-signin-shim-background
+--matrix-signin-shim-blur
+--matrix-signin-dialog-background
+--matrix-signin-dialog-border-color
+--matrix-signin-dialog-shadow
+--matrix-signin-dialog-text-color
+--matrix-signin-dialog-icon-color
+--matrix-signin-dialog-hover-color
+--matrix-signin-dialog-error-color
+--matrix-signin-dialog-button-background
+--matrix-signin-dialog-button-color
+```
+
 ### `<matrix-signin-button>`
 
 #### HTML attributes

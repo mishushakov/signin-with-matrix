@@ -5,7 +5,7 @@
   },
   "license": "MIT",
   "keywords": ["matrix", "sign in", "component", "element", "webcomponents", "svelte", "typescript", "vite"],
-  "version": "1.0.2",
+  "version": "1.0.3",
   "type": "module",
   "scripts": {
     "dev": "vite",
